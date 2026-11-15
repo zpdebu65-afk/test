@@ -239,6 +239,10 @@ const server = http.createServer((req, res) => {
     if (req.method !== "POST") return send(res, 405, "Method Not Allowed", undefined, { Allow: "POST" });
     return handleApply(req, res);
   }
+  // 신청서는 대본 페이지 맨 아래로 합쳐졌습니다. 예전 링크(/apply)는 그쪽으로 보냅니다.
+  if (urlPath === "/apply" || urlPath === "/apply/" || urlPath === "/apply.html") {
+    return send(res, 301, "Moved", undefined, { Location: "/#apply" });
+  }
   if (urlPath === "/admin" || urlPath === "/admin/") return handleAdmin(req, res);
   if (urlPath === "/admin/applications.csv") return handleCsv(req, res);
   if (req.method !== "GET" && req.method !== "HEAD") return send(res, 405, "Method Not Allowed");

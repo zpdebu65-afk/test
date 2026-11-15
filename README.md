@@ -7,7 +7,7 @@
 
 ```
 public/index.html   대본 페이지 (/)
-public/apply.html   특강 신청서 (/apply)
+                    (특강 신청서는 대본 페이지 맨 아래 #apply, /apply는 그쪽으로 이동)
 server.js           페이지 서버 + 신청 저장 API + 관리자 명단
 package.json        npm start 스크립트
 railway.json        Railway 배포 설정
@@ -19,7 +19,7 @@ railway.json        Railway 배포 설정
 npm start
 ```
 
-브라우저에서 http://localhost:3000 (대본), http://localhost:3000/apply (신청서)를 엽니다.
+브라우저에서 http://localhost:3000 (대본), http://localhost:3000/#apply (맨 아래 신청서)를 엽니다.
 
 ## Railway 배포
 
@@ -31,7 +31,7 @@ Railway가 `PORT` 환경변수를 자동으로 넣어 주므로 따로 설정할
 
 ## 특강 신청서
 
-- 신청 주소: `https://<배포 도메인>/apply`
+- 신청 주소: `https://<배포 도메인>/#apply` (예전 주소 `/apply`도 자동으로 이동)
 - 신청자 명단: `https://<배포 도메인>/admin` (아이디는 아무거나, 비밀번호는 `ADMIN_PASSWORD`)
 - 엑셀 다운로드: 명단 화면의 **엑셀(CSV)로 받기** 버튼
 - 같은 휴대폰 번호로는 한 번만 신청할 수 있습니다.

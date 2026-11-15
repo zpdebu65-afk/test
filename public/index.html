@@ -14,16 +14,17 @@
   --home:#1f6f5c;      /* 무주택 */
   --multi:#8a4b0f;     /* 다주택 */
   --cue:#eef2f6; --warn-bg:#fdf1ef;
+  --seal-soft:#fbeceb; --ok:#1f6f5c; --ok-soft:#e6f3ef; --field:#fbfcfd;
   --f-display:"Do Hyeon","IBM Plex Sans KR",system-ui,sans-serif;
   --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#11161b; --paper:#182029; --ink:#e6ebf0; --muted:#9aa7b4; --line:#2a3541;
-  --seal:#ef6b62; --home:#5cc4a6; --multi:#e3a35e; --cue:#1e2832; --warn-bg:#2a1d1c; color-scheme:dark}}
+  --seal:#ef6b62; --home:#5cc4a6; --multi:#e3a35e; --cue:#1e2832; --warn-bg:#2a1d1c; --seal-soft:#2c1c1b; --ok:#5cc4a6; --ok-soft:#16302a; --field:#141b22; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#11161b; --paper:#182029; --ink:#e6ebf0; --muted:#9aa7b4; --line:#2a3541;
-  --seal:#ef6b62; --home:#5cc4a6; --multi:#e3a35e; --cue:#1e2832; --warn-bg:#2a1d1c; color-scheme:dark}
+  --seal:#ef6b62; --home:#5cc4a6; --multi:#e3a35e; --cue:#1e2832; --warn-bg:#2a1d1c; --seal-soft:#2c1c1b; --ok:#5cc4a6; --ok-soft:#16302a; --field:#141b22; color-scheme:dark}
 body{word-break:keep-all;overflow-wrap:anywhere;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.75}
 .wrap{max-width:860px;margin:0 auto;padding-block:40px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 header{display:grid;gap:12px;padding-bottom:28px;border-bottom:2px solid var(--ink)}
@@ -78,6 +79,71 @@ footer{margin-top:28px;font-size:13px;color:var(--muted);line-height:1.7}
   .tc{padding-top:0}.tc span{display:inline;margin-left:8px}
   .split{grid-template-columns:1fr}
 }
+/* ---- 특강 신청서 ---- */
+#apply{display:grid;gap:28px;margin-top:40px;padding-top:36px;border-top:2px solid var(--ink);scroll-margin-top:16px}
+#apply .kicker{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+#apply header{border-bottom:0;padding-bottom:0;display:block}
+#apply .signup-title em{font-style:normal;color:var(--seal)}
+#apply .signup-title{font-family:var(--f-display);font-weight:400;font-size:clamp(28px,5.4vw,40px);line-height:1.25;margin:6px 0 0;text-wrap:balance}
+#apply .lead{margin:8px 0 0;color:var(--muted);max-width:60ch}
+#apply .ticket{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--paper);border:2px solid var(--ink);border-radius:8px;overflow:hidden}
+#apply .ticket > div{padding:14px 16px;border-right:1px dashed var(--line);min-width:0}
+#apply .ticket > div:last-child{border-right:0}
+#apply .ticket dt{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;color:var(--muted)}
+#apply .ticket dd{margin:4px 0 0;font-weight:700;font-size:17px;line-height:1.35}
+#apply .ticket dd small{display:block;font-weight:400;font-size:13px;color:var(--muted)}
+#apply h2{font-family:var(--f-display);font-weight:400;font-size:24px;margin:0}
+#apply .pay{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px 22px;align-items:center;background:var(--seal-soft);border:1px solid var(--seal);border-radius:8px;padding:16px 18px}
+#apply .fee{font-family:var(--f-display);font-size:34px;line-height:1;color:var(--seal)}
+#apply .fee small{display:block;font-family:var(--f-body);font-size:13px;color:var(--muted);margin-top:6px}
+#apply .acct{display:grid;gap:6px;min-width:0}
+#apply .acct-line{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px}
+#apply .acct-no{font-family:var(--f-mono);font-size:17px;font-variant-numeric:tabular-nums;user-select:all}
+#apply .copy{font:inherit;font-size:13px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px 12px;cursor:pointer}
+#apply .copy:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+#apply .seats{font-weight:700}
+#apply .agenda{display:grid;gap:0;border-top:1px solid var(--line)}
+#apply .agenda li{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
+#apply .agenda ol{list-style:none;margin:0;padding:0}
+#apply .agenda time{font-family:var(--f-mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:2px}
+#apply .agenda b{display:block}
+#apply .agenda span{color:var(--muted);font-size:14.5px}
+#apply .agenda .break b{color:var(--muted);font-weight:500}
+#apply form{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:22px clamp(16px,4vw,28px);display:grid;gap:20px}
+#apply .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+#apply .f{display:grid;gap:6px;min-width:0}
+#apply label,#apply .legend{font-weight:700;font-size:14.5px}
+#apply .req{color:var(--seal);margin-left:3px}
+#apply .hint{font-size:13px;color:var(--muted);font-weight:400}
+#apply input[type=text],#apply input[type=tel],#apply input[type=email],#apply textarea{font:inherit;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:6px;padding:10px 12px;width:100%;box-sizing:border-box}
+#apply textarea{min-height:96px;resize:vertical}
+#apply input:focus-visible,#apply textarea:focus-visible{outline:2px solid var(--seal);outline-offset:1px;border-color:transparent}
+#apply fieldset{border:0;margin:0;padding:0;display:grid;gap:8px;min-width:0}
+#apply .chips{display:flex;flex-wrap:wrap;gap:8px}
+#apply .chips label{font-weight:500;font-size:14.5px;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer;background:var(--field)}
+#apply .chips input{accent-color:var(--seal);margin:0}
+#apply .chips label:has(input:checked){border-color:var(--seal);background:var(--seal-soft)}
+#apply .chips label:has(input:focus-visible){outline:2px solid var(--seal);outline-offset:2px}
+#apply .consent{background:var(--field);border:1px solid var(--line);border-radius:6px;padding:12px 14px;font-size:13.5px;color:var(--muted);line-height:1.6}
+#apply .consent ul{margin:6px 0 10px;padding-left:1.2em}
+#apply .consent label{color:var(--ink);font-size:14.5px;display:flex;gap:8px;align-items:flex-start;cursor:pointer}
+#apply .consent input{accent-color:var(--seal);margin-top:5px}
+#apply .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+#apply button{font:inherit;font-family:var(--f-display);font-size:22px;color:#fff;background:var(--seal);border:0;border-radius:8px;padding:14px 18px;cursor:pointer}
+#apply button:hover{filter:brightness(1.06)}#apply button:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+#apply button[disabled]{opacity:.6;cursor:progress}
+#apply .msg{border-radius:6px;padding:12px 14px;font-size:14.5px}
+#apply .msg.err{background:var(--seal-soft);color:var(--seal);border:1px solid var(--seal)}
+#apply .done{background:var(--ok-soft);border:2px solid var(--ok);border-radius:8px;padding:24px;display:grid;gap:8px}
+#apply .done h2{color:var(--ok)}
+#apply .done p{margin:0}
+@media (max-width:640px){
+#apply .ticket{grid-template-columns:1fr 1fr}
+#apply .ticket > div:nth-child(2){border-right:0}
+#apply .ticket > div:nth-child(-n+2){border-bottom:1px dashed var(--line)}
+#apply .row,#apply .pay{grid-template-columns:1fr}
+#apply .agenda li{grid-template-columns:1fr;gap:2px}
+}
 </style>
 
 <div class="wrap">
@@ -86,13 +152,13 @@ footer{margin-top:28px;font-size:13px;color:var(--muted);line-height:1.7}
   <div class="eyebrow">YouTube Script · 약 13분 · 2026.11</div>
   <h1>경매 낙찰받고 <em>잔금대출</em> 받는 법<br>무주택자 vs 다주택자, 완전히 다릅니다</h1>
   <div class="meta"><span>형식: 원테이크 토크 + 자막 그래픽</span><span>대상: 경매 입문자, 갈아타기 고민하는 유주택자</span></div>
-  <div class="cta"><div><b>오프라인 특강 · 12월 10일(목) 오전 10시</b><br><span>신촌 포스빌 · 2시간 · 강사 쿵쿵나리 · 참가비 3만원 · 선착순 25명</span></div><a href="/apply">특강 신청하기</a></div>
+  <div class="cta"><div><b>오프라인 특강 · 12월 10일(목) 오전 10시</b><br><span>신촌 포스빌 · 2시간 · 강사 쿵쿵나리 · 참가비 3만원 · 선착순 25명</span></div><a href="#apply">특강 신청하기</a></div>
   <div class="notice"><b>촬영 전 확인</b> · 이 대본은 2025년 6·27 가계부채 대책과 10·15 주택시장 안정화 대책(규제지역·토지거래허가구역 확대, 주담대 한도 차등, 스트레스 DSR 강화)을 기준으로 썼습니다. 대출 규제는 자주 바뀝니다. 촬영 직전 금융위원회 보도자료와 주거래 은행에서 수치를 다시 확인하고, 영상 설명란에 "촬영일 기준"을 꼭 적어 주세요.</div>
 </header>
 
 <nav aria-label="대본 목차">
   <a href="#s1">오프닝</a><a href="#s2">경락잔금대출 기초</a><a href="#s3">대출 한도 3대 변수</a><a href="#s4">지금 규제 지도</a>
-  <a href="#s5">무주택자</a><a href="#s6">무주택 계산 예시</a><a href="#s7">다주택자</a><a href="#s8">다주택 우회로</a><a href="#s9">공통 실수</a><a href="#s10">클로징</a>
+  <a href="#s5">무주택자</a><a href="#s6">무주택 계산 예시</a><a href="#s7">다주택자</a><a href="#s8">다주택 우회로</a><a href="#s9">공통 실수</a><a href="#s10">클로징</a><a href="#apply">특강 신청</a>
 </nav>
 
 <section class="scene p-gen" id="s1">
@@ -288,6 +354,183 @@ footer{margin-top:28px;font-size:13px;color:var(--muted);line-height:1.7}
 <footer>
   설명란 고지 문구 예시: 본 영상은 촬영일 기준 공개된 정부 대책을 바탕으로 한 일반 정보이며, 개인별 대출 한도와 세금은 금융기관 심사와 세무 전문가 상담을 통해 확인하시기 바랍니다. 투자 판단과 책임은 본인에게 있습니다.
 </footer>
+
+<section id="apply" aria-labelledby="apply-title">
+  <header>
+    <div class="kicker">오프라인 특강 · 수강 신청서</div>
+    <h2 class="signup-title" id="apply-title">경매 낙찰 후 <em>잔금대출</em>, 막히지 않고 받는 법</h2>
+    <p class="lead">대출 규제가 바뀐 지금, 무주택자와 다주택자는 경락잔금대출 전략이 완전히 다릅니다. 실전 투자자 쿵쿵나리가 규제 지도부터 한도 계산, 막혔을 때의 우회로까지 2시간 동안 정리해 드립니다.</p>
+  </header>
+
+  <dl class="ticket" aria-label="강의 정보">
+    <div><dt>DATE</dt><dd>12월 10일 (목)<small>2026년</small></dd></div>
+    <div><dt>TIME</dt><dd>오전 10:00<small>~ 12:00 (2시간)</small></dd></div>
+    <div><dt>PLACE</dt><dd>신촌 포스빌<small>마포구 신촌로 150, 204호</small></dd></div>
+    <div><dt>SPEAKER</dt><dd>쿵쿵나리<small>실전 투자자</small></dd></div>
+  </dl>
+
+  <section class="pay" aria-label="참가비와 입금 안내">
+    <div class="fee">30,000원<small>참가비 · 1인</small></div>
+    <div class="acct">
+      <div><span class="seats" id="seats">선착순 25명</span> 모집합니다.</div>
+      <div class="acct-line"><span>국민은행</span><span class="acct-no" id="acct-no">28221-0407-177</span><span>(예금주 이선미)</span><button type="button" class="copy" id="copy-acct" data-target="acct-no">계좌 복사</button></div>
+      <div class="hint">입금자명은 신청서에 적은 이름과 같게 해 주세요.</div>
+    </div>
+  </section>
+
+  <section class="agenda" aria-labelledby="agenda-h">
+    <h2 id="agenda-h" style="padding-bottom:10px">강의 내용</h2>
+    <ol>
+      <li><time>10:00 – 10:40</time><div><b>1부 · 지금 대출 규제 지도</b><span>규제지역과 토지거래허가구역, LTV, 주담대 금액 상한(6억·4억·2억), 스트레스 DSR까지 한 장으로 정리</span></div></li>
+      <li><time>10:40 – 11:20</time><div><b>2부 · 경락잔금대출 실전</b><span>낙찰부터 잔금까지 일정, 한도 계산법, 방공제, 입찰 전 가심사 받는 요령</span></div></li>
+      <li class="break"><time>11:20 – 11:30</time><div><b>휴식</b></div></li>
+      <li><time>11:30 – 12:00</time><div><b>3부 · 무주택자 vs 다주택자 전략과 질의응답</b><span>생애최초·정책대출 활용법, 처분조건부 대출, 지방·비주택으로 방향 바꾸기, 현장 질문</span></div></li>
+    </ol>
+  </section>
+
+  <div id="form-area">
+  <form id="apply-form" novalidate>
+    <h2>신청서 작성</h2>
+    <div class="row">
+      <div class="f"><label for="name">이름<span class="req" aria-hidden="true">*</span></label><input type="text" id="name" name="name" autocomplete="name" maxlength="30" required></div>
+      <div class="f"><label for="phone">휴대폰 번호<span class="req" aria-hidden="true">*</span></label><input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="numeric" placeholder="010-0000-0000" maxlength="13" required></div>
+    </div>
+    <div class="f"><label for="email">이메일 <span class="hint">(선택, 강의 자료 발송용)</span></label><input type="email" id="email" name="email" autocomplete="email" maxlength="80"></div>
+
+    <fieldset>
+      <div class="legend" id="house-l">현재 주택 보유 현황<span class="req" aria-hidden="true">*</span> <span class="hint">본인과 배우자 합산</span></div>
+      <div class="chips" role="radiogroup" aria-labelledby="house-l">
+        <label><input type="radio" id="house-0" name="house" value="무주택" required>무주택</label>
+        <label><input type="radio" id="house-1" name="house" value="1주택">1주택</label>
+        <label><input type="radio" id="house-2" name="house" value="2주택 이상">2주택 이상</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <div class="legend" id="exp-l">경매 경험<span class="req" aria-hidden="true">*</span></div>
+      <div class="chips" role="radiogroup" aria-labelledby="exp-l">
+        <label><input type="radio" id="exp-0" name="experience" value="없음" required>아직 없음</label>
+        <label><input type="radio" id="exp-1" name="experience" value="입찰만 해봄">입찰만 해봄</label>
+        <label><input type="radio" id="exp-2" name="experience" value="낙찰 1~2회">낙찰 1~2회</label>
+        <label><input type="radio" id="exp-3" name="experience" value="낙찰 3회 이상">낙찰 3회 이상</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <div class="legend" id="src-l">특강을 알게 된 경로</div>
+      <div class="chips" role="radiogroup" aria-labelledby="src-l">
+        <label><input type="radio" id="src-0" name="source" value="유튜브">쿵쿵나리TV 유튜브</label>
+        <label><input type="radio" id="src-1" name="source" value="지인 소개">지인 소개</label>
+        <label><input type="radio" id="src-2" name="source" value="카페·커뮤니티">카페·커뮤니티</label>
+        <label><input type="radio" id="src-3" name="source" value="기타">기타</label>
+      </div>
+    </fieldset>
+
+    <div class="f"><label for="question">강의에서 꼭 듣고 싶은 질문 <span class="hint">(선택)</span></label><textarea id="question" name="question" maxlength="500" placeholder="예: 1주택자인데 서울 경매로 갈아타려면 기존 집을 언제까지 팔아야 하나요?"></textarea></div>
+
+    <div class="hp" aria-hidden="true"><label for="website">웹사이트</label><input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></div>
+
+    <div class="consent">
+      <b style="color:var(--ink)">개인정보 수집·이용 동의</b>
+      <ul>
+        <li>수집 항목: 이름, 휴대폰 번호, 이메일(선택), 주택 보유 현황, 경매 경험, 질문 내용</li>
+        <li>이용 목적: 특강 신청 확인, 일정·장소 안내 연락, 강의 내용 준비</li>
+        <li>보유 기간: 특강 종료 후 3개월 뒤 파기</li>
+        <li>동의하지 않으면 신청할 수 없습니다.</li>
+      </ul>
+      <label for="agree"><input type="checkbox" id="agree" name="agree" required>위 내용에 동의합니다.<span class="req" aria-hidden="true">*</span></label>
+    </div>
+
+    <div id="form-msg" class="msg err" role="alert" hidden></div>
+    <button type="submit" id="submit-btn">특강 신청하기</button>
+  </form>
+  </div>
+
+  <div id="done" class="done" role="status" hidden>
+    <h2>신청이 접수됐습니다</h2>
+    <p id="done-text"></p>
+    <p><b>참가비 30,000원</b>을 아래 계좌로 보내 주세요. 입금자명은 신청하신 이름과 같게 해 주세요.</p>
+    <p class="acct-line"><span>국민은행</span><span class="acct-no" id="acct-no-2">28221-0407-177</span><span>(예금주 이선미)</span><button type="button" class="copy" data-target="acct-no-2">계좌 복사</button></p>
+    <p>12월 10일(목) 오전 10시, 신촌 포스빌(서울 마포구 신촌로 150, 204호)에서 뵙겠습니다. 강의 전에 입력하신 번호로 안내를 드립니다.</p>
+  </div>
+</section>
 </div>
+
+<script>
+(function(){
+  var form = document.getElementById('apply-form');
+  var msg = document.getElementById('form-msg');
+  var btn = document.getElementById('submit-btn');
+  var phone = document.getElementById('phone');
+
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click', function(){
+      var el = document.getElementById(b.dataset.target);
+      var text = '국민 ' + el.textContent + ' 이선미';
+      function selectIt(){ var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = '선택됨, 복사하세요'; }
+      try { navigator.clipboard.writeText(text).then(function(){ b.textContent = '복사됨'; setTimeout(function(){ b.textContent = '계좌 복사'; }, 1800); }, selectIt); } catch (e) { selectIt(); }
+    });
+  });
+
+  fetch('/api/status').then(function(r){ return r.ok ? r.json() : null; }).then(function(st){
+    if (!st || !st.capacity) return;
+    var left = Math.max(0, st.capacity - st.count);
+    var seats = document.getElementById('seats');
+    if (left === 0) {
+      seats.textContent = '선착순 ' + st.capacity + '명 마감';
+      btn.disabled = true; btn.textContent = '정원이 마감되었습니다';
+    } else {
+      seats.textContent = '선착순 ' + st.capacity + '명 · 남은 자리 ' + left + '석';
+    }
+  }).catch(function(){});
+
+  phone.addEventListener('input', function(){
+    var d = phone.value.replace(/\D/g,'').slice(0,11);
+    phone.value = d.length < 4 ? d : d.length < 8 ? d.slice(0,3)+'-'+d.slice(3) : d.slice(0,3)+'-'+d.slice(3,d.length-4)+'-'+d.slice(-4);
+  });
+
+  function radio(name){ var el = form.querySelector('input[name="'+name+'"]:checked'); return el ? el.value : ''; }
+  function fail(text, focusId){ msg.textContent = text; msg.hidden = false; if (focusId) document.getElementById(focusId).focus(); }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    msg.hidden = true;
+    var data = {
+      name: form.name.value.trim(),
+      phone: phone.value.trim(),
+      email: form.email.value.trim(),
+      house: radio('house'),
+      experience: radio('experience'),
+      source: radio('source'),
+      question: form.question.value.trim(),
+      website: form.website.value,
+      agree: form.agree.checked
+    };
+    if (!data.name) return fail('이름을 입력해 주세요.', 'name');
+    if (!/^01[016789]-?\d{3,4}-?\d{4}$/.test(data.phone)) return fail('휴대폰 번호를 010-1234-5678 형식으로 입력해 주세요.', 'phone');
+    if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) return fail('이메일 주소 형식을 확인해 주세요.', 'email');
+    if (!data.house) return fail('주택 보유 현황을 선택해 주세요.', 'house-0');
+    if (!data.experience) return fail('경매 경험을 선택해 주세요.', 'exp-0');
+    if (!data.agree) return fail('개인정보 수집·이용에 동의해야 신청할 수 있습니다.', 'agree');
+
+    btn.disabled = true; btn.textContent = '보내는 중…';
+    fetch('/api/apply', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data) })
+      .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ return {ok:r.ok, body:j}; }); })
+      .then(function(res){
+        if (!res.ok) throw new Error(res.body.error || '신청을 저장하지 못했습니다. 잠시 후 다시 시도해 주세요.');
+        document.getElementById('done-text').textContent = data.name + '님, 신청 번호 ' + res.body.number + '번으로 접수했습니다.';
+        document.getElementById('form-area').hidden = true;
+        document.getElementById('done').hidden = false;
+        document.getElementById('done').scrollIntoView({block:'center'});
+      })
+      .catch(function(err){
+        var t = err && err.message && !/fetch|network|Load failed/i.test(err.message) ? err.message
+          : '서버에 연결하지 못했습니다. 이 화면이 미리보기라면 신청은 저장되지 않습니다. 실제 신청은 특강 신청 사이트에서 해 주세요.';
+        fail(t);
+      })
+      .then(function(){ btn.disabled = false; btn.textContent = '특강 신청하기'; });
+  });
+})();
+</script>
 
 </html>
