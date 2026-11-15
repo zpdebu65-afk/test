@@ -1,7 +1,7 @@
 {
   "name": "auction-loan-script",
   "version": "1.0.0",
-  "description": "경매 낙찰 후 경락잔금대출 유튜브 대본 (무주택자 vs 다주택자)",
+  "description": "쿵쿵나리TV - 경매 낙찰 후 경락잔금대출 유튜브 대본 (무주택자 vs 다주택자)",
   "main": "server.js",
   "private": true,
   "scripts": {
