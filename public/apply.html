@@ -21,7 +21,7 @@
 :root[data-theme="dark"]{
   --bg:#11161b; --paper:#182029; --ink:#e6ebf0; --muted:#9aa7b4; --line:#2e3a46;
   --seal:#ef6b62; --seal-soft:#2c1c1b; --ok:#5cc4a6; --ok-soft:#16302a; --field:#141b22; color-scheme:dark}
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.65}
+body{word-break:keep-all;overflow-wrap:anywhere;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.65}
 .wrap{max-width:760px;margin:0 auto;padding-block:36px 72px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:28px}
 .brand{display:flex;align-items:center;flex-wrap:wrap;gap:6px 14px;font-family:var(--f-display);line-height:1}
 .brand-name{font-size:clamp(52px,13vw,96px);color:var(--seal);text-shadow:4px 4px 0 color-mix(in srgb,var(--ink) 14%,transparent)}
@@ -39,6 +39,15 @@ h1 em{font-style:normal;color:var(--seal)}
 .ticket dd small{display:block;font-weight:400;font-size:13px;color:var(--muted)}
 
 h2{font-family:var(--f-display);font-weight:400;font-size:24px;margin:0}
+.pay{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px 22px;align-items:center;background:var(--seal-soft);border:1px solid var(--seal);border-radius:8px;padding:16px 18px}
+.fee{font-family:var(--f-display);font-size:34px;line-height:1;color:var(--seal)}
+.fee small{display:block;font-family:var(--f-body);font-size:13px;color:var(--muted);margin-top:6px}
+.acct{display:grid;gap:6px;min-width:0}
+.acct-line{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px}
+.acct-no{font-family:var(--f-mono);font-size:17px;font-variant-numeric:tabular-nums;user-select:all}
+.copy{font:inherit;font-size:13px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px 12px;cursor:pointer}
+.copy:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+.seats{font-weight:700}
 .agenda{display:grid;gap:0;border-top:1px solid var(--line)}
 .agenda li{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
 .agenda ol{list-style:none;margin:0;padding:0}
@@ -80,7 +89,7 @@ footer{font-size:13px;color:var(--muted)}
   .ticket{grid-template-columns:1fr 1fr}
   .ticket > div:nth-child(2){border-right:0}
   .ticket > div:nth-child(-n+2){border-bottom:1px dashed var(--line)}
-  .row{grid-template-columns:1fr}
+  .row,.pay{grid-template-columns:1fr}
   .agenda li{grid-template-columns:1fr;gap:2px}
 }
 @media (prefers-reduced-motion:no-preference){.brand-name{animation:thump .9s ease-out 1}}
@@ -98,9 +107,18 @@ footer{font-size:13px;color:var(--muted)}
   <dl class="ticket" aria-label="강의 정보">
     <div><dt>DATE</dt><dd>12월 10일 (목)<small>2026년</small></dd></div>
     <div><dt>TIME</dt><dd>오전 10:00<small>~ 12:00 (2시간)</small></dd></div>
-    <div><dt>PLACE</dt><dd>신촌 포스빌<small>서울 신촌</small></dd></div>
+    <div><dt>PLACE</dt><dd>신촌 포스빌<small>마포구 신촌로 150, 204호</small></dd></div>
     <div><dt>SPEAKER</dt><dd>쿵쿵나리<small>실전 투자자</small></dd></div>
   </dl>
+
+  <section class="pay" aria-label="참가비와 입금 안내">
+    <div class="fee">30,000원<small>참가비 · 1인</small></div>
+    <div class="acct">
+      <div><span class="seats" id="seats">선착순 25명</span> 모집합니다.</div>
+      <div class="acct-line"><span>국민은행</span><span class="acct-no" id="acct-no">28221-0407-177</span><span>(예금주 이선미)</span><button type="button" class="copy" id="copy-acct" data-target="acct-no">계좌 복사</button></div>
+      <div class="hint">입금자명은 신청서에 적은 이름과 같게 해 주세요.</div>
+    </div>
+  </section>
 
   <section class="agenda" aria-labelledby="agenda-h">
     <h2 id="agenda-h" style="padding-bottom:10px">강의 내용</h2>
@@ -173,7 +191,9 @@ footer{font-size:13px;color:var(--muted)}
   <div id="done" class="done" role="status" hidden>
     <h2>신청이 접수됐습니다</h2>
     <p id="done-text"></p>
-    <p>12월 10일(목) 오전 10시, 신촌 포스빌에서 뵙겠습니다. 강의 전에 입력하신 번호로 안내를 드립니다.</p>
+    <p><b>참가비 30,000원</b>을 아래 계좌로 보내 주세요. 입금자명은 신청하신 이름과 같게 해 주세요.</p>
+    <p class="acct-line"><span>국민은행</span><span class="acct-no" id="acct-no-2">28221-0407-177</span><span>(예금주 이선미)</span><button type="button" class="copy" data-target="acct-no-2">계좌 복사</button></p>
+    <p>12월 10일(목) 오전 10시, 신촌 포스빌(서울 마포구 신촌로 150, 204호)에서 뵙겠습니다. 강의 전에 입력하신 번호로 안내를 드립니다.</p>
   </div>
 
   <footer>주최 쿵쿵나리TV · 강의 내용은 2026년 현재 공개된 정부 대책을 기준으로 하며, 개인별 대출 한도는 금융기관 심사에 따라 달라집니다.</footer>
@@ -185,6 +205,27 @@ footer{font-size:13px;color:var(--muted)}
   var msg = document.getElementById('form-msg');
   var btn = document.getElementById('submit-btn');
   var phone = document.getElementById('phone');
+
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click', function(){
+      var el = document.getElementById(b.dataset.target);
+      var text = '국민 ' + el.textContent + ' 이선미';
+      function selectIt(){ var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = '선택됨, 복사하세요'; }
+      try { navigator.clipboard.writeText(text).then(function(){ b.textContent = '복사됨'; setTimeout(function(){ b.textContent = '계좌 복사'; }, 1800); }, selectIt); } catch (e) { selectIt(); }
+    });
+  });
+
+  fetch('/api/status').then(function(r){ return r.ok ? r.json() : null; }).then(function(st){
+    if (!st || !st.capacity) return;
+    var left = Math.max(0, st.capacity - st.count);
+    var seats = document.getElementById('seats');
+    if (left === 0) {
+      seats.textContent = '선착순 ' + st.capacity + '명 마감';
+      btn.disabled = true; btn.textContent = '정원이 마감되었습니다';
+    } else {
+      seats.textContent = '선착순 ' + st.capacity + '명 · 남은 자리 ' + left + '석';
+    }
+  }).catch(function(){});
 
   phone.addEventListener('input', function(){
     var d = phone.value.replace(/\D/g,'').slice(0,11);

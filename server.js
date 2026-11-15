@@ -8,7 +8,7 @@ const PUBLIC_DIR = path.join(__dirname, "public");
 const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, "data");
 const DATA_FILE = path.join(DATA_DIR, "applications.json");
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
-const CAPACITY = parseInt(process.env.CAPACITY || "0", 10); // 0 = 제한 없음
+const CAPACITY = parseInt(process.env.CAPACITY || "25", 10); // 0 = 제한 없음
 
 const TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -181,7 +181,7 @@ th,td{padding:8px 10px;border-bottom:1px solid #e3e8ed;text-align:left;vertical-
 th{background:#eef2f6}
 </style></head><body>
 <h1>쿵쿵나리 특강 신청자 명단</h1>
-<p>12월 10일(목) 10:00 · 신촌 포스빌${CAPACITY > 0 ? ` · 정원 ${CAPACITY}명` : ""}</p>
+<p>12월 10일(목) 10:00 · 신촌 포스빌 (마포구 신촌로 150, 204호) · 참가비 3만원${CAPACITY > 0 ? ` · 정원 ${CAPACITY}명 · 남은 자리 ${Math.max(0, CAPACITY - list.length)}석` : ""}</p>
 <div class="stats"><span>전체 ${list.length}명</span>${HOUSE.map((h) => `<span>${h} ${count("house", h)}명</span>`).join("")}</div>
 <a class="btn" href="/admin/applications.csv">엑셀(CSV)로 받기</a>
 <div class="tbl"><table><thead><tr><th>번호</th><th>이름</th><th>연락처</th><th>이메일</th><th>주택</th><th>경매 경험</th><th>경로</th><th>질문</th><th>신청 시각</th></tr></thead>
@@ -228,6 +228,13 @@ const server = http.createServer((req, res) => {
   }
 
   if (urlPath === "/health") return send(res, 200, "ok");
+  if (urlPath === "/api/status") {
+    try {
+      return json(res, 200, { count: loadApplications().length, capacity: CAPACITY });
+    } catch (e) {
+      return json(res, 500, { error: "status unavailable" });
+    }
+  }
   if (urlPath === "/api/apply") {
     if (req.method !== "POST") return send(res, 405, "Method Not Allowed", undefined, { Allow: "POST" });
     return handleApply(req, res);
