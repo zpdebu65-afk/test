@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>낙찰 후 대출 대본</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=Do+Hyeon&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: 촬영 대본(큐시트) — 왼쪽 타임코드 레일 + 오른쪽 내레이션, 화면 지시는 연한 박스, 무주택/다주택은 색으로 구분 */
+:root{
+  --bg:#f5f7f9; --paper:#ffffff; --ink:#17212b; --muted:#5b6875; --line:#dbe1e7;
+  --seal:#c2302a;      /* 법원 인주 */
+  --home:#1f6f5c;      /* 무주택 */
+  --multi:#8a4b0f;     /* 다주택 */
+  --cue:#eef2f6; --warn-bg:#fdf1ef;
+  --f-display:"Do Hyeon","IBM Plex Sans KR",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11161b; --paper:#182029; --ink:#e6ebf0; --muted:#9aa7b4; --line:#2a3541;
+  --seal:#ef6b62; --home:#5cc4a6; --multi:#e3a35e; --cue:#1e2832; --warn-bg:#2a1d1c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11161b; --paper:#182029; --ink:#e6ebf0; --muted:#9aa7b4; --line:#2a3541;
+  --seal:#ef6b62; --home:#5cc4a6; --multi:#e3a35e; --cue:#1e2832; --warn-bg:#2a1d1c; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.75}
+.wrap{max-width:860px;margin:0 auto;padding-block:40px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{display:grid;gap:12px;padding-bottom:28px;border-bottom:2px solid var(--ink)}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+h1{font-family:var(--f-display);font-weight:400;font-size:clamp(30px,6vw,46px);line-height:1.2;margin:0;text-wrap:balance}
+h1 em{font-style:normal;color:var(--seal)}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:var(--muted)}
+.notice{background:var(--warn-bg);border:1px solid var(--seal);border-radius:6px;padding:12px 14px;font-size:14px;line-height:1.6}
+.notice b{color:var(--seal)}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 8px}
+nav a{font-size:13px;padding:5px 10px;border:1px solid var(--line);border-radius:999px;color:var(--ink);text-decoration:none;background:var(--paper)}
+nav a:hover,nav a:focus-visible{border-color:var(--ink);outline:none}
+section.scene{display:grid;grid-template-columns:92px minmax(0,1fr);gap:20px;padding-block:28px;border-bottom:1px solid var(--line)}
+.tc{font-family:var(--f-mono);font-size:13px;color:var(--muted);padding-top:6px;font-variant-numeric:tabular-nums}
+.tc span{display:block;font-size:11px;letter-spacing:.08em;margin-top:4px}
+.body{min-width:0;display:grid;gap:14px}
+h2{font-family:var(--f-display);font-weight:400;font-size:26px;line-height:1.3;margin:0;text-wrap:balance}
+h3{font-size:17px;margin:6px 0 0}
+.part{display:inline-block;font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;padding:2px 8px;border-radius:3px;color:var(--paper);width:max-content}
+.p-home .part{background:var(--home)} .p-multi .part{background:var(--multi)} .p-gen .part{background:var(--ink)}
+.p-home h2{color:var(--home)} .p-multi h2{color:var(--multi)}
+.say{margin:0}
+.say b{background:linear-gradient(transparent 62%,color-mix(in srgb,var(--seal) 22%,transparent) 0)}
+.cue{background:var(--cue);border-radius:4px;padding:8px 12px;font-size:14px;color:var(--muted);line-height:1.6}
+.cue::before{content:"화면 ";font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;color:var(--ink);margin-right:6px}
+.cue.sub::before{content:"자막 "}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14px;line-height:1.55}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;background:var(--cue)}
+tr:last-child td{border-bottom:0}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+ol.steps,ul.list{margin:0;padding-left:1.3em;display:grid;gap:6px}
+.calc{font-family:var(--f-mono);font-size:13.5px;background:var(--paper);border:1px dashed var(--line);border-radius:6px;padding:12px 14px;line-height:1.8;overflow-x:auto;white-space:pre}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.split > div{min-width:0;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:12px 14px;font-size:14.5px;line-height:1.65}
+.split .h{border-top:3px solid var(--home)} .split .m{border-top:3px solid var(--multi)}
+.split strong{display:block;margin-bottom:4px}
+footer{margin-top:28px;font-size:13px;color:var(--muted);line-height:1.7}
+@media (max-width:600px){
+  section.scene{grid-template-columns:1fr;gap:6px}
+  .tc{padding-top:0}.tc span{display:inline;margin-left:8px}
+  .split{grid-template-columns:1fr}
+}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">YouTube Script · 약 13분 · 2026.11</div>
+  <h1>경매 낙찰받고 <em>잔금대출</em> 받는 법<br>무주택자 vs 다주택자, 완전히 다릅니다</h1>
+  <div class="meta"><span>형식: 원테이크 토크 + 자막 그래픽</span><span>대상: 경매 입문자, 갈아타기 고민하는 유주택자</span></div>
+  <div class="notice"><b>촬영 전 확인</b> · 이 대본은 2025년 6·27 가계부채 대책과 10·15 주택시장 안정화 대책(규제지역·토지거래허가구역 확대, 주담대 한도 차등, 스트레스 DSR 강화)을 기준으로 썼습니다. 대출 규제는 자주 바뀝니다. 촬영 직전 금융위원회 보도자료와 주거래 은행에서 수치를 다시 확인하고, 영상 설명란에 "촬영일 기준"을 꼭 적어 주세요.</div>
+</header>
+
+<nav aria-label="대본 목차">
+  <a href="#s1">오프닝</a><a href="#s2">경락잔금대출 기초</a><a href="#s3">대출 한도 3대 변수</a><a href="#s4">지금 규제 지도</a>
+  <a href="#s5">무주택자</a><a href="#s6">무주택 계산 예시</a><a href="#s7">다주택자</a><a href="#s8">다주택 우회로</a><a href="#s9">공통 실수</a><a href="#s10">클로징</a>
+</nav>
+
+<section class="scene p-gen" id="s1">
+  <div class="tc">00:00<span>HOOK</span></div>
+  <div class="body">
+    <div class="part">오프닝</div>
+    <h2>낙찰은 받았는데, 잔금이 안 나온다면?</h2>
+    <div class="cue">법원 경매법정 외관 B롤 → 진행자 정면 클로즈업</div>
+    <p class="say">경매 낙찰, 생각보다 어렵지 않습니다. 진짜 어려운 건 그다음이에요. <b>낙찰가의 90%를 한 달 남짓 안에 마련해야 하거든요.</b> 이걸 못 내면 입찰할 때 낸 보증금 10%는 그대로 날아갑니다.</p>
+    <p class="say">그런데 같은 집을 같은 가격에 낙찰받아도, 무주택자는 5억이 나오고 다주택자는 0원이 나올 수 있습니다. 오늘은 경락잔금대출을 <b>무주택자와 다주택자로 나눠서</b> 어디까지 되고 어디서 막히는지, 막히면 어떤 길이 남아 있는지 정리해 드릴게요.</p>
+    <div class="cue sub">"보증금 10% 몰수" 빨간 도장 효과</div>
+  </div>
+</section>
+
+<section class="scene p-gen" id="s2">
+  <div class="tc">00:50<span>BASICS</span></div>
+  <div class="body">
+    <div class="part">기초</div>
+    <h2>경락잔금대출, 일반 주담대와 뭐가 다를까</h2>
+    <p class="say">경락잔금대출은 경매로 낙찰받은 부동산을 담보로 잔금을 빌리는 대출입니다. 구조는 주택담보대출과 같아서 <b>LTV, DSR 같은 주담대 규제가 그대로 적용</b>돼요. 다른 점은 일정입니다.</p>
+    <ol class="steps">
+      <li><b>낙찰(매각기일)</b>: 최고가매수인 결정. 법원 앞에서 대출 상담사 명함을 많이 받게 됩니다.</li>
+      <li><b>매각허가결정</b>: 낙찰 후 약 7일.</li>
+      <li><b>매각허가 확정</b>: 다시 약 7일, 이의가 없으면 확정.</li>
+      <li><b>대금지급기한 통지</b>: 확정 후 보통 30일 안팎으로 기한이 잡힙니다.</li>
+      <li><b>잔금 납부 + 소유권 이전</b>: 대출 실행과 동시에 법무사가 등기를 처리합니다.</li>
+    </ol>
+    <div class="cue">타임라인 그래픽: 낙찰 → +7일 → +14일 → 약 +45일 잔금</div>
+    <p class="say">핵심은 이거예요. <b>대출 심사는 낙찰 후가 아니라 입찰 전에 끝내야 합니다.</b> 입찰 전에 은행 두세 곳에 "이 물건, 이 가격이면 얼마 나오냐"고 가심사를 받아 두세요. 낙찰받고 나서 알아보면 늦습니다.</p>
+  </div>
+</section>
+
+<section class="scene p-gen" id="s3">
+  <div class="tc">02:20<span>VARIABLES</span></div>
+  <div class="body">
+    <div class="part">기초</div>
+    <h2>내 한도를 정하는 세 가지 변수</h2>
+    <p class="say">경락잔금대출 한도는 세 개 숫자 중 <b>가장 작은 값</b>으로 정해집니다.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>변수</th><th>뜻</th><th>경매에서 주의할 점</th></tr></thead>
+      <tbody>
+        <tr><td><b>LTV</b></td><td>담보가치 대비 대출 비율</td><td>경매는 보통 <b>감정가와 낙찰가 중 낮은 금액</b>이 기준입니다. 싸게 낙찰받을수록 기준가도 낮아져요.</td></tr>
+        <tr><td><b>DSR</b></td><td>연소득 대비 모든 대출의 연간 원리금 비율 (은행 40%, 2금융 50%)</td><td>스트레스 금리를 더해서 계산하기 때문에 실제 금리보다 한도가 작게 나옵니다.</td></tr>
+        <tr><td><b>한도 상한</b></td><td>수도권·규제지역 주담대 금액 상한</td><td>집값 구간별로 6억 / 4억 / 2억 상한이 있습니다.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="say">여기에 하나 더. <b>방공제</b>라는 게 있어요. 소액임차인 최우선변제금만큼 대출에서 빼는 건데, 서울 아파트면 방 하나당 수천만 원이 깎일 수 있습니다. 보험(MCI·MCG)으로 방공제를 면제받을 수 있는지도 같이 물어보세요.</p>
+    <div class="cue sub">한도 = min(LTV 한도, DSR 한도, 금액 상한) − 방공제</div>
+  </div>
+</section>
+
+<section class="scene p-gen" id="s4">
+  <div class="tc">03:40<span>MAP</span></div>
+  <div class="body">
+    <div class="part">현재 규제</div>
+    <h2>먼저 지도부터: 내 물건은 어디에 있나</h2>
+    <div class="cue">수도권 지도 그래픽, 서울 전역 + 경기 12개 지역 빨간색 표시</div>
+    <p class="say">10·15 대책으로 <b>서울 25개 구 전체와 경기 12개 지역</b>(과천, 광명, 성남 분당·수정·중원, 수원 영통·장안·팔달, 안양 동안, 용인 수지, 의왕, 하남)이 조정대상지역·투기과열지구, 그리고 토지거래허가구역으로 묶였습니다.</p>
+    <p class="say">여기서 경매 유튜버들이 자주 하는 말이 있죠. "경매는 토지거래허가를 안 받아도 된다." 맞습니다. <b>경매로 취득하면 토허 허가 대상이 아니라서 실거주 2년 의무도 없어요.</b> 그런데 대출은 별개입니다. 규제지역에서 주담대를 받으면 <b>6개월 안에 전입해야 하는 조건</b>이 붙습니다. 대출을 받는 순간 갭투자는 막힌다고 보시면 돼요.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>주택 가격(시가)</th><th>수도권·규제지역 주담대 상한</th></tr></thead>
+      <tbody>
+        <tr><td>15억 이하</td><td class="num">최대 6억</td></tr>
+        <tr><td>15억 초과 ~ 25억 이하</td><td class="num">최대 4억</td></tr>
+        <tr><td>25억 초과</td><td class="num">최대 2억</td></tr>
+      </tbody>
+    </table></div>
+    <p class="say">그리고 수도권·규제지역 주담대의 스트레스 DSR 가산금리가 올라가서, 같은 연봉이라도 작년보다 한도가 줄었습니다. 이 세 가지가 무주택자든 다주택자든 깔고 들어가는 바닥이에요.</p>
+  </div>
+</section>
+
+<section class="scene p-home" id="s5">
+  <div class="tc">05:00<span>PART 1</span></div>
+  <div class="body">
+    <div class="part">PART 1 · 무주택자</div>
+    <h2>무주택자: 대출은 나온다, 대신 조건이 붙는다</h2>
+    <p class="say">무주택자는 경락잔금대출에서 가장 유리한 위치입니다. 지역별로 보면 이렇습니다.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>구분</th><th>LTV</th><th>붙는 조건</th></tr></thead>
+      <tbody>
+        <tr><td>비규제지역 (지방 대부분)</td><td class="num">70%</td><td>DSR만 통과하면 비교적 자유</td></tr>
+        <tr><td>수도권 비규제지역</td><td class="num">70%</td><td>주담대 6억 상한, 6개월 내 전입</td></tr>
+        <tr><td>규제지역 (서울 전역 등)</td><td class="num">40%</td><td>금액 상한(6/4/2억), 6개월 내 전입</td></tr>
+        <tr><td>규제지역 + 생애최초</td><td class="num">70%</td><td>금액 상한, 6개월 내 전입</td></tr>
+      </tbody>
+    </table></div>
+    <h3>무주택자가 꼭 챙길 것 세 가지</h3>
+    <ol class="steps">
+      <li><b>생애최초 여부를 먼저 확인하세요.</b> 본인과 배우자 모두 평생 주택을 가진 적이 없어야 합니다. 서울에서는 LTV가 40%와 70%로 갈리니까 이게 제일 큰 변수예요.</li>
+      <li><b>정책대출도 후보에 넣으세요.</b> 디딤돌, 보금자리론, 신생아 특례대출은 소득·주택가격 요건이 맞으면 금리가 시중보다 낮습니다. 다만 경락 물건 취급 여부와 실행 일정이 은행마다 달라서, 잔금 기한 안에 실행되는지 반드시 확인하세요.</li>
+      <li><b>6개월 전입 계획이 현실적인지 보세요.</b> 경매 물건에는 기존 점유자가 있습니다. 명도가 늦어지면 전입 기한을 못 맞출 수 있어요. 점유자 성향, 인도명령 일정까지 계산에 넣어야 합니다.</li>
+    </ol>
+    <div class="cue">명도 장면 일러스트 + "전입 6개월" 카운트다운 자막</div>
+  </div>
+</section>
+
+<section class="scene p-home" id="s6">
+  <div class="tc">07:00<span>EXAMPLE</span></div>
+  <div class="body">
+    <div class="part">PART 1 · 무주택자</div>
+    <h2>계산 예시: 서울 아파트 8억 낙찰, 연봉 7천</h2>
+    <div class="cue">화이트보드 계산, 숫자 하나씩 등장</div>
+<div class="calc">감정가 9억 / 낙찰가 8억 → 기준가 8억 (낮은 쪽)
+
+① LTV   일반 무주택 40%  → 3억 2,000만
+        생애최초   70%  → 5억 6,000만
+② 상한  15억 이하 주택   → 6억
+③ DSR   연소득 7,000만 × 40% = 연 원리금 2,800만
+        30년 원리금균등, 금리 4.0% + 스트레스 가산 가정
+        → 대략 3억 중반 안팎
+
+최종 한도 = 가장 작은 값
+  일반 무주택   ≈ 3억 2,000만 (LTV에서 막힘)
+  생애최초      ≈ 3억 중반     (DSR에서 막힘)</div>
+    <p class="say">보이시죠? 생애최초라서 LTV는 5억 6천까지 열렸는데, <b>실제로는 DSR에서 3억 중반에 막힙니다.</b> 그럼 낙찰가 8억에서 대출 3억 5천을 빼면 자기자금이 4억 5천 필요하고, 취득세·법무비·명도비·수리비까지 더하면 5억 가까이 있어야 해요.</p>
+    <p class="say">그래서 무주택자는 입찰가를 정할 때 <b>"얼마에 사고 싶냐"가 아니라 "내 현금 + DSR 한도로 감당되는 최대 낙찰가가 얼마냐"</b>부터 거꾸로 계산하셔야 합니다.</p>
+    <div class="cue sub">위 숫자는 설명용 가정입니다. 실제 한도는 금리 유형(변동/고정), 기존 대출, 은행별 심사에 따라 달라집니다.</div>
+  </div>
+</section>
+
+<section class="scene p-multi" id="s7">
+  <div class="tc">08:40<span>PART 2</span></div>
+  <div class="body">
+    <div class="part">PART 2 · 다주택자</div>
+    <h2>다주택자: 수도권은 사실상 문이 닫혔다</h2>
+    <p class="say">이제 집이 이미 있는 분들. 결론부터 말씀드리면 <b>2주택 이상은 수도권과 규제지역에서 주택 경락잔금대출이 사실상 불가능합니다.</b> LTV 0%예요.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>보유 주택</th><th>수도권·규제지역</th><th>지방 비규제지역</th></tr></thead>
+      <tbody>
+        <tr><td><b>1주택자</b></td><td>기존 주택 <b>처분 조건</b>(6개월 내)으로만 가능. LTV는 무주택자와 같은 수준, 6개월 내 전입</td><td>추가 취득 가능. LTV 60~70% 수준(은행별 확인)</td></tr>
+        <tr><td><b>2주택 이상</b></td><td>주담대 불가 (LTV 0%)</td><td>가능하지만 LTV가 낮아지고 DSR 부담이 큼</td></tr>
+        <tr><td><b>매매·임대사업자</b></td><td>주택 구입 목적 사업자 주담대 불가</td><td>사업자대출 가능성 있음(금융기관별 상이)</td></tr>
+      </tbody>
+    </table></div>
+    <p class="say">1주택자가 서울에서 경매로 갈아타기 하려면, <b>지금 집을 6개월 안에 팔겠다는 약정</b>을 걸고 대출을 받는 구조입니다. 못 팔면 대출을 회수당하고 앞으로 일정 기간 주담대가 막힐 수 있어요. 기존 집 매도 시세부터 냉정하게 보셔야 합니다.</p>
+    <div class="split">
+      <div class="m"><strong>세금도 같이 보세요</strong>조정대상지역에서 2주택이 되면 취득세 8%, 3주택이면 12%입니다. 비조정지역은 3주택부터 8%, 4주택부터 12%. 1억 원짜리 물건이면 취득세만 800만~1,200만 원이에요.</div>
+      <div class="m"><strong>예외 하나</strong>공시가격 1억 원 이하 주택은 원칙적으로 취득세 중과에서 빠집니다(정비구역 등 예외 있음). 지방 소액 경매에 다주택자가 몰리는 이유입니다.</div>
+    </div>
+  </div>
+</section>
+
+<section class="scene p-multi" id="s8">
+  <div class="tc">10:30<span>OPTIONS</span></div>
+  <div class="body">
+    <div class="part">PART 2 · 다주택자</div>
+    <h2>다주택자에게 남은 네 가지 길</h2>
+    <p class="say">그럼 다주택자는 경매를 접어야 하느냐. 그렇지는 않습니다. 길이 좁아졌을 뿐이에요.</p>
+    <ol class="steps">
+      <li><b>지방 비규제지역 주택.</b> 은행권이나 2금융권에서 경락잔금대출이 나옵니다. 대신 DSR과 취득세 중과를 같이 계산해서 수익률이 남는지 확인하세요.</li>
+      <li><b>비주택으로 방향 전환.</b> 상가, 업무용 오피스텔, 지식산업센터, 토지는 주택담보대출 규제가 아니라 비주택 담보대출 기준(LTV 최대 70% 수준)이 적용됩니다. 임대수익과 공실 위험을 보는 다른 게임이에요. 오피스텔은 주거용으로 쓰면 세법상 주택 수에 들어갈 수 있으니 주의하세요.</li>
+      <li><b>주택 수 정리 후 입찰.</b> 수익이 낮은 주택을 먼저 처분해서 1주택 또는 무주택 상태를 만든 뒤 입찰하는 방법입니다. 대출 규제는 <b>대출 실행 시점</b> 보유 주택 수 기준이라는 점을 기억하세요.</li>
+      <li><b>법인 낙찰.</b> 법인은 수도권·규제지역 주택 대출이 사실상 막혀 있고, 주택 취득세가 12%로 무겁습니다. 비주택 위주로만 검토할 만합니다.</li>
+    </ol>
+    <div class="cue">네 갈래 길 그래픽, 2번(비주택)에 하이라이트</div>
+    <p class="say">그리고 한 가지 당부. "다주택자도 무조건 대출 나와요"라는 대출 상담사 말만 믿고 입찰하면 안 됩니다. <b>법원 앞 명함은 가심사일 뿐이고, 최종 승인은 은행 본심사에서 납니다.</b> 승인 조건을 문자나 메일로 받아 두세요.</p>
+  </div>
+</section>
+
+<section class="scene p-gen" id="s9">
+  <div class="tc">11:50<span>CHECKLIST</span></div>
+  <div class="body">
+    <div class="part">공통</div>
+    <h2>둘 다 해당되는 실수 다섯 가지</h2>
+    <div class="split">
+      <div class="h"><strong>무주택자가 자주 놓치는 것</strong>생애최초 요건(배우자 과거 보유 이력), 정책대출 실행 일정, 명도 지연으로 인한 6개월 전입 기한.</div>
+      <div class="m"><strong>다주택자가 자주 놓치는 것</strong>취득세 중과, 처분조건 약정 위반 시 불이익, 사업자대출의 용도 제한.</div>
+    </div>
+    <ol class="steps">
+      <li>입찰 전에 가심사를 안 받는다.</li>
+      <li>LTV만 보고 DSR, 방공제, 금액 상한을 빼먹는다.</li>
+      <li>취득세·법무비·명도비·체납 관리비를 자기자금 계산에 안 넣는다.</li>
+      <li>대출 상담 결과를 말로만 듣고 서면으로 안 받는다.</li>
+      <li>입찰과 잔금 사이에 규제가 바뀔 수 있다는 걸 생각하지 않는다. 규제는 대출 신청·실행 시점 기준입니다.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="scene p-gen" id="s10">
+  <div class="tc">12:40<span>OUTRO</span></div>
+  <div class="body">
+    <div class="part">클로징</div>
+    <h2>정리하면</h2>
+    <div class="split">
+      <div class="h"><strong>무주택자</strong>대출은 나옵니다. 생애최초면 서울도 LTV 70%. 대신 DSR이 진짜 한도이고, 6개월 안에 들어가 살아야 합니다.</div>
+      <div class="m"><strong>다주택자</strong>수도권·규제지역 주택은 사실상 불가. 지방 비규제, 비주택, 주택 수 정리 중에서 길을 찾아야 합니다.</div>
+    </div>
+    <p class="say">경매의 수익은 낙찰가에서 나오는 게 아니라 <b>잔금을 무사히 치르는 데서</b> 확정됩니다. 입찰표 쓰기 전에 대출부터 확인하세요. 오늘 내용이 도움이 됐다면 구독과 좋아요 부탁드리고, 본인 상황이 무주택인지 다주택인지 댓글로 남겨 주시면 다음 영상에서 사례로 다뤄 보겠습니다.</p>
+    <div class="cue">엔드 스크린: 추천 영상 "경매 명도 실전" + 구독 버튼</div>
+  </div>
+</section>
+
+<footer>
+  설명란 고지 문구 예시: 본 영상은 촬영일 기준 공개된 정부 대책을 바탕으로 한 일반 정보이며, 개인별 대출 한도와 세금은 금융기관 심사와 세무 전문가 상담을 통해 확인하시기 바랍니다. 투자 판단과 책임은 본인에게 있습니다.
+</footer>
+</div>
+
+</html>
