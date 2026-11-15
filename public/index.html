@@ -33,6 +33,11 @@ header{display:grid;gap:12px;padding-bottom:28px;border-bottom:2px solid var(--i
 .brand-tv{font-size:clamp(28px,6vw,48px);color:var(--paper);background:var(--ink);padding:.18em .38em .12em;border-radius:8px;transform:rotate(-4deg)}
 @media (prefers-reduced-motion:no-preference){.brand-name{animation:thump .9s ease-out 1}}
 @keyframes thump{0%{transform:scale(1)}15%{transform:scale(1.06)}30%{transform:scale(1)}45%{transform:scale(1.04)}60%,100%{transform:scale(1)}}
+.cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;background:var(--ink);color:var(--paper);border-radius:8px;padding:14px 18px}
+.cta b{font-family:var(--f-display);font-weight:400;font-size:20px}
+.cta span{font-size:14px;opacity:.85}
+.cta a{font-family:var(--f-display);font-size:18px;color:#fff;background:var(--seal);text-decoration:none;padding:8px 16px;border-radius:6px;white-space:nowrap}
+.cta a:focus-visible{outline:3px solid var(--paper);outline-offset:2px}
 h1{font-family:var(--f-display);font-weight:400;font-size:clamp(24px,4.6vw,34px);line-height:1.2;margin:0;text-wrap:balance}
 h1 em{font-style:normal;color:var(--seal)}
 .meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:var(--muted)}
@@ -81,6 +86,7 @@ footer{margin-top:28px;font-size:13px;color:var(--muted);line-height:1.7}
   <div class="eyebrow">YouTube Script · 약 13분 · 2026.11</div>
   <h1>경매 낙찰받고 <em>잔금대출</em> 받는 법<br>무주택자 vs 다주택자, 완전히 다릅니다</h1>
   <div class="meta"><span>형식: 원테이크 토크 + 자막 그래픽</span><span>대상: 경매 입문자, 갈아타기 고민하는 유주택자</span></div>
+  <div class="cta"><div><b>오프라인 특강 · 12월 10일(목) 오전 10시</b><br><span>신촌 포스빌 · 2시간 · 강사 쿵쿵나리</span></div><a href="/apply">특강 신청하기</a></div>
   <div class="notice"><b>촬영 전 확인</b> · 이 대본은 2025년 6·27 가계부채 대책과 10·15 주택시장 안정화 대책(규제지역·토지거래허가구역 확대, 주담대 한도 차등, 스트레스 DSR 강화)을 기준으로 썼습니다. 대출 규제는 자주 바뀝니다. 촬영 직전 금융위원회 보도자료와 주거래 은행에서 수치를 다시 확인하고, 영상 설명란에 "촬영일 기준"을 꼭 적어 주세요.</div>
 </header>
 
